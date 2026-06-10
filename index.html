@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>永和秀朗路 21425391 租屋決策包</title>
+  <style>
+    :root {
+      --bg: #090a0f;
+      --panel: #0d0f17;
+      --panel-2: #121622;
+      --text: #f8fafc;
+      --muted: #aab4c5;
+      --soft: #d7dde8;
+      --gold: #c5a86b;
+      --gold-2: #e0c98d;
+      --line: rgba(197, 168, 107, 0.18);
+      --line-strong: rgba(197, 168, 107, 0.36);
+      --danger: #ff8f8f;
+      --ok: #9be7c0;
+      --paper: #fbf8ef;
+      --ink: #111827;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(circle at top left, rgba(197, 168, 107, 0.14), transparent 34rem),
+        linear-gradient(135deg, #090a0f 0%, #10131c 56%, #090a0f 100%);
+      color: var(--text);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: var(--gold-2); }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 56px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 22px;
+      align-items: stretch;
+      min-height: 360px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: rgba(13, 15, 23, 0.82);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+    }
+
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--gold-2);
+      font-size: 13px;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 780px;
+      font-size: clamp(30px, 5vw, 58px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 16px 0 0;
+      color: var(--soft);
+      font-size: 17px;
+      max-width: 760px;
+    }
+
+    .hero-image {
+      min-height: 315px;
+      background-image:
+        linear-gradient(180deg, rgba(9, 10, 15, 0.1), rgba(9, 10, 15, 0.58)),
+        url("https://img1.591.com.tw/house/2025/11/17/176336782731704104.jpg!1000x.water2.jpg");
+      background-size: cover;
+      background-position: center;
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .image-caption {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      color: var(--text);
+      font-size: 13px;
+      text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65);
+    }
+
+    .source {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      background: rgba(197, 168, 107, 0.08);
+      color: var(--gold-2);
+      font-weight: 700;
+    }
+
+    .section {
+      margin-top: 28px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: rgba(13, 15, 23, 0.78);
+      backdrop-filter: blur(20px);
+    }
+
+    .section h2 {
+      margin: 0 0 16px;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .section-lead {
+      margin: -6px 0 18px;
+      color: var(--muted);
+    }
+
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .fact {
+      min-height: 96px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      background: rgba(18, 22, 34, 0.92);
+    }
+
+    .fact .label {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .fact .value {
+      margin-top: 6px;
+      color: var(--text);
+      font-size: 19px;
+      font-weight: 800;
+      word-break: break-word;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .note {
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      background: rgba(197, 168, 107, 0.08);
+      color: var(--soft);
+    }
+
+    .warning {
+      border-color: rgba(255, 143, 143, 0.36);
+      background: rgba(255, 143, 143, 0.09);
+    }
+
+    .ok {
+      border-color: rgba(155, 231, 192, 0.32);
+      background: rgba(155, 231, 192, 0.08);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 0;
+      overflow: hidden;
+    }
+
+    th, td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: rgba(197, 168, 107, 0.14);
+      color: var(--gold-2);
+      font-size: 14px;
+    }
+
+    td {
+      color: var(--soft);
+      background: rgba(18, 22, 34, 0.64);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: rgba(18, 22, 34, 0.68);
+      color: var(--soft);
+    }
+
+    .box {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      border: 1px solid var(--line-strong);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .script {
+      margin: 10px 0 0;
+      padding: 14px;
+      white-space: pre-wrap;
+      border: 1px solid var(--line);
+      background: #08090d;
+      color: #f1e8d0;
+      font-family: "SFMono-Regular", Consolas, monospace;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .decision {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .decision .note {
+      min-height: 120px;
+    }
+
+    .footer {
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .hero,
+      .grid-2,
+      .grid-3,
+      .decision {
+        grid-template-columns: 1fr;
+      }
+
+      .facts {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero-image { min-height: 260px; }
+      .page { width: min(100% - 20px, 1120px); padding-top: 10px; }
+      .section, .hero { padding: 16px; }
+    }
+
+    @media (max-width: 560px) {
+      .facts { grid-template-columns: 1fr; }
+      th, td { padding: 9px; }
+      h1 { font-size: 34px; }
+    }
+
+    @media print {
+      body {
+        background: var(--paper);
+        color: var(--ink);
+      }
+
+      .page {
+        width: 100%;
+        padding: 0;
+      }
+
+      .hero,
+      .section,
+      .fact,
+      td,
+      .checklist li,
+      .note,
+      .script {
+        background: #fff;
+        color: var(--ink);
+        border-color: #d6c7a4;
+        box-shadow: none;
+        backdrop-filter: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .hero-image {
+        min-height: 180px;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .subtitle,
+      .section-lead,
+      td,
+      .checklist li,
+      .source,
+      .footer {
+        color: #374151;
+      }
+
+      .pill,
+      .eyebrow,
+      th,
+      .fact .label {
+        color: #745d28;
+      }
+
+      .section {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        margin-top: 14px;
+        padding: 14px;
+      }
+
+      a { color: #745d28; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-copy">
+        <div>
+          <p class="eyebrow">591 房源 21425391｜永和秀朗路二段148巷</p>
+          <h1>永和運動中心5分 採光3房 租屋決策包</h1>
+          <p class="subtitle">這份文件只根據這間房源製作：看房要驗什麼、訂金要怎麼收、簽約要寫什麼，以及合租前需要先講好的底線。</p>
+        </div>
+        <div class="source">
+          <span class="pill">刊登租金 28,998 元/月</span>
+          <span class="pill">3房1廳1衛</span>
+          <span class="pill">25坪</span>
+          <span class="pill">5F/5F 公寓</span>
+          <span class="pill">可租補</span>
+        </div>
+      </div>
+      <div class="hero-image" role="img" aria-label="591 房源照片">
+        <div class="image-caption">
+          <span>591 刊登照片</span>
+          <span>租金不含其他費用</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>房源資料卡</h2>
+      <p class="section-lead">以下為 591 頁面可讀取到的資訊，簽約前逐項確認是否仍一致。</p>
+      <div class="facts">
+        <div class="fact"><div class="label">月租</div><div class="value">28,998 元</div></div>
+        <div class="fact"><div class="label">若加 5%</div><div class="value">30,448 元</div></div>
+        <div class="fact"><div class="label">押金</div><div class="value">二個月租金</div></div>
+        <div class="fact"><div class="label">刊登押金</div><div class="value">57,996 元</div></div>
+        <div class="fact"><div class="label">格局</div><div class="value">3房1廳1衛</div></div>
+        <div class="fact"><div class="label">使用坪數</div><div class="value">25坪</div></div>
+        <div class="fact"><div class="label">樓層</div><div class="value">5F/5F</div></div>
+        <div class="fact"><div class="label">型態</div><div class="value">公寓</div></div>
+        <div class="fact"><div class="label">地址</div><div class="value">永和區秀朗路二段148巷</div></div>
+        <div class="fact"><div class="label">最短租期</div><div class="value">一年</div></div>
+        <div class="fact"><div class="label">可遷入日</div><div class="value">可隨時遷入</div></div>
+        <div class="fact"><div class="label">車位</div><div class="value">無車位</div></div>
+      </div>
+
+      <div class="grid-3" style="margin-top:16px;">
+        <div class="note ok"><strong>加分項：</strong>免管理費、可開伙、租金補貼、拎包入住、隨時可遷入、已辦產權登記。</div>
+        <div class="note warning"><strong>必查風險：</strong>5F/5F 公寓，現場確認是否無電梯、頂樓隔熱、漏水、西曬與搬家難度。</div>
+        <div class="note warning"><strong>費用風險：</strong>服務費未包含。若月租改 30,448，押金是否也改為 60,896 必須先問清楚。</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>家具家電與設備</h2>
+      <p class="section-lead">頁面列有這些設備；現場不要只看「有沒有」，要測「能不能用、誰負責修」。</p>
+      <table>
+        <thead>
+          <tr>
+            <th>頁面列有</th>
+            <th>看房現場要做</th>
+            <th>簽約寫法</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>冰箱、洗衣機、電視</td>
+            <td>確認冷藏冷凍、洗衣排水、電視是否可用。</td>
+            <td>列入設備清單，非人為故障由出租方修繕。</td>
+          </tr>
+          <tr>
+            <td>冷氣、熱水器、天然瓦斯</td>
+            <td>冷氣每台開 10 分鐘；熱水器測熱水穩定；瓦斯通風安全。</td>
+            <td>寫明冷氣、熱水器、瓦斯設備及管線故障責任。</td>
+          </tr>
+          <tr>
+            <td>床、衣櫃、沙發、桌椅</td>
+            <td>檢查清潔、破損、發霉、異味、床墊塌陷。</td>
+            <td>太舊就要求更換、清潔或搬走，並寫在點交表。</td>
+          </tr>
+          <tr>
+            <td>2陽台</td>
+            <td>看排水、曬衣空間、漏水痕跡、鐵窗逃生。</td>
+            <td>陽台不得被口頭改成不可使用空間。</td>
+          </tr>
+          <tr>
+            <td>第四台、網路</td>
+            <td>頁面設備碼有出現，現場確認是否真的包含、速度與費用。</td>
+            <td>若包含，合約寫明費用已含；若不含，寫明由承租人自理。</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>看房檢查表</h2>
+      <div class="grid-2">
+        <ul class="checklist">
+          <li><span class="box"></span><span>確認實際門牌、樓層、格局與 591 房源一致。</span></li>
+          <li><span class="box"></span><span>5F/5F 公寓：現場確認是否有電梯；若無電梯，搬家與每天上下樓是否能接受。</span></li>
+          <li><span class="box"></span><span>頂樓必查：天花板水痕、壁癌、窗邊滲水、西曬、室內悶熱。</span></li>
+          <li><span class="box"></span><span>三間房都看採光、對外窗、插座數量、冷氣位置。</span></li>
+          <li><span class="box"></span><span>1 衛浴是否夠合租使用；測馬桶、水壓、熱水、排水。</span></li>
+          <li><span class="box"></span><span>廚房確認可開伙、天然瓦斯開關、抽油煙、排水與清潔狀況。</span></li>
+        </ul>
+        <ul class="checklist">
+          <li><span class="box"></span><span>所有家具家電現場開機或試用，拍照錄影存證。</span></li>
+          <li><span class="box"></span><span>確認無車位後，機車停放位置、汽車臨停、搬家車停靠。</span></li>
+          <li><span class="box"></span><span>晚上或尖峰時段確認噪音、巷弄照明、垃圾車時間。</span></li>
+          <li><span class="box"></span><span>確認到秀朗橋站、景平站、公車站的實際步行時間。</span></li>
+          <li><span class="box"></span><span>確認不可養寵物是否完全不能談，避免室友未來踩線。</span></li>
+          <li><span class="box"></span><span>問清楚租金補貼：可自行申請，且租期內不再因此加價。</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>訂金注意事項</h2>
+      <p class="section-lead">頁面文案寫「如有意承租 -> 現場確認條件 -> 收取租屋訂金 -> 訂定簽約日期」。訂金可以付，但要讓條件先固定。</p>
+      <div class="grid-2">
+        <div>
+          <h3>付訂前先確認</h3>
+          <ul class="checklist">
+            <li><span class="box"></span><span>月租固定金額：28,998、30,000、30,400 或 30,448，不能只寫「加 5%」。</span></li>
+            <li><span class="box"></span><span>若月租改為 30,448，押金到底是 57,996 還是 60,896。</span></li>
+            <li><span class="box"></span><span>服務費未包含：仲介服務費金額、付款時間、收款人。</span></li>
+            <li><span class="box"></span><span>修繕項目：看房發現的問題，誰修、何時修好。</span></li>
+            <li><span class="box"></span><span>收款帳戶：公司帳戶或個人帳戶，收據抬頭與收款人一致。</span></li>
+          </ul>
+        </div>
+        <div>
+          <h3>收據或 LINE 要寫</h3>
+          <div class="script">房屋地址：新北市永和區秀朗路二段148巷
+房源編號：591 21425391 / 案件編號 Y3A25
+月租金：＿＿＿＿ 元，租期內不得因租補、報稅或申報再加價
+押金：＿＿＿＿ 元
+訂金：＿＿＿＿ 元
+訂金用途：簽約時抵租金 / 押金 / 仲介服務費
+預計簽約日：
+預計入住日：
+若出租方反悔、房屋條件與約定不符、或租補條件改變，訂金全額退還
+收款人 / 帳號：
+日期：</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>簽約注意事項</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>合約項目</th>
+            <th>這間房要寫清楚的內容</th>
+            <th>不要接受的模糊說法</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>租金</td>
+            <td>固定月租：建議談成 30,000 或 30,400；若接受 30,448，直接寫 30,448。</td>
+            <td>原租金加 5%、之後看狀況調整。</td>
+          </tr>
+          <tr>
+            <td>租補</td>
+            <td>承租人可自行申請租金補貼、報稅或申報，出租人不得因此加價、另收費或提前解約。</td>
+            <td>租補要另加費用、稅金另計、到時候再說。</td>
+          </tr>
+          <tr>
+            <td>押金</td>
+            <td>押金金額、退還時間、扣款明細。若租金變更，押金是否重算先寫明。</td>
+            <td>押金是否退還由房東認定。</td>
+          </tr>
+          <tr>
+            <td>服務費</td>
+            <td>頁面寫未包含服務費；合約或收據要列明金額與收款方。</td>
+            <td>成交後再算、公司規定、先付再說。</td>
+          </tr>
+          <tr>
+            <td>修繕</td>
+            <td>冷氣、冰箱、洗衣機、熱水器、瓦斯、管線、漏水、壁癌等非人為損壞由出租方處理。</td>
+            <td>所有修繕都由房客負擔。</td>
+          </tr>
+          <tr>
+            <td>設備清單</td>
+            <td>把頁面列的家具家電、2陽台、鑰匙、磁扣全部列入點交附件。</td>
+            <td>設備只是附贈，不保證可用。</td>
+          </tr>
+          <tr>
+            <td>提前退租</td>
+            <td>提前通知時間、違約金、押金扣除後餘額返還。</td>
+            <td>提前退租押金全部沒收。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>建議加進合約的三句話</h3>
+      <div class="script">承租人得依法自行申請租金補貼、報稅或辦理相關租賃申報，出租人不得因此調漲租金、要求補償、提前終止租約或另收其他名目費用。</div>
+      <div class="script">房屋本體及附屬設備因自然耗損或非可歸責於承租人之原因損壞者，由出租人負責修繕。</div>
+      <div class="script">租約終止並完成房屋點交後，出租人應於 7 日內返還押金餘額。若需扣款，應提出明細、照片或單據，不得任意扣押。</div>
+    </section>
+
+    <section class="section">
+      <h2>合租決策表</h2>
+      <p class="section-lead">看完房後，各自填一輪。若有任一項低於 3 分，先談修正條件再付訂。</p>
+      <table>
+        <thead>
+          <tr>
+            <th>項目</th>
+            <th>評分 1-5</th>
+            <th>這間房的判斷重點</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>租金</td><td>＿＿ / 5</td><td>30,000 最漂亮；30,400 可接受；30,448 是接受上限。</td></tr>
+          <tr><td>樓層</td><td>＿＿ / 5</td><td>5F/5F 公寓，必須能接受爬樓與頂樓風險。</td></tr>
+          <tr><td>房間分配</td><td>＿＿ / 5</td><td>3 房大小若差很多，租金要按房間條件分。</td></tr>
+          <tr><td>家具家電</td><td>＿＿ / 5</td><td>有附很多設備，但要以現場測試結果為準。</td></tr>
+          <tr><td>交通</td><td>＿＿ / 5</td><td>秀朗橋站約 1114m，景平站約 1280m，不是貼捷運。</td></tr>
+          <tr><td>租補條件</td><td>＿＿ / 5</td><td>可租補，但必須寫明不再加價或另收費。</td></tr>
+          <tr><td>仲介費與訂金</td><td>＿＿ / 5</td><td>頁面寫收服務費，訂金與服務費都要有收據。</td></tr>
+          <tr><td>修繕保障</td><td>＿＿ / 5</td><td>頂樓、冷氣、熱水器、瓦斯、漏水責任要寫清楚。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section">
+      <h2>最後底線</h2>
+      <div class="decision">
+        <div class="note ok"><strong>可以接受：</strong>租金固定在 30,000-30,448，租補自行申請，家具家電現場測過，修繕與押金退還寫清楚。</div>
+        <div class="note warning"><strong>先不要付訂：</strong>租金、押金、仲介費、租補加價、修繕責任還沒寫清楚。</div>
+        <div class="note warning"><strong>直接放棄：</strong>要求先匯款、不給收據、拒絕寫租補不加價、或頂樓漏水/悶熱問題明顯。</div>
+      </div>
+    </section>
+
+    <p class="footer">
+      資料來源：<a href="https://rent.591.com.tw/21425391">591 租屋房源 21425391</a>。本文件依 2026-06-11 抓取頁面資訊整理，實際條件以簽約白紙黑字為準。
+    </p>
+  </main>
+</body>
+</html>
