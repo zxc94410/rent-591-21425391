@@ -426,6 +426,14 @@
       align-items: start;
     }
 
+    .weighted-score-layout {
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    }
+
+    .weighted-score-table {
+      min-width: 0;
+    }
+
     /* Splitter Sliders */
     .slider-input {
       -webkit-appearance: none;
@@ -541,13 +549,95 @@
       }
     }
 
+    @media (max-width: 1180px) {
+      .weighted-score-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .weighted-score-layout .donut-card {
+        min-height: 240px;
+        order: -1;
+      }
+
+      .weighted-score-table table {
+        display: table;
+        width: 100%;
+        overflow: visible;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .weighted-score-table table,
+      .weighted-score-table thead,
+      .weighted-score-table tbody,
+      .weighted-score-table tr,
+      .weighted-score-table td {
+        display: block;
+        width: 100%;
+      }
+
+      .weighted-score-table table {
+        margin-top: 0;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+        overflow: visible;
+      }
+
+      .weighted-score-table thead {
+        display: none;
+      }
+
+      .weighted-score-table tr {
+        border: 1px solid var(--line);
+        background: rgba(18, 22, 34, 0.68);
+        padding: 12px;
+      }
+
+      .weighted-score-table td {
+        border: 0;
+        background: transparent;
+        padding: 7px 0;
+      }
+
+      .weighted-score-table td::before {
+        display: block;
+        color: var(--gold-2);
+        font-size: 12px;
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+
+      .weighted-score-table td:nth-child(1)::before { content: "項目"; }
+      .weighted-score-table td:nth-child(2)::before { content: "權重"; }
+      .weighted-score-table td:nth-child(3)::before { content: "評分 1-5"; }
+      .weighted-score-table td:nth-child(4)::before { content: "判斷重點"; }
+
+      .weighted-score-table .rating-control {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        min-width: 0;
+        width: 100%;
+      }
+
+      .weighted-score-table .rating-btn {
+        min-width: 0;
+        min-height: 48px;
+      }
+
+      .weighted-score-layout .donut-card {
+        min-height: 220px;
+        padding: 18px;
+      }
+    }
+
     @media (max-width: 560px) {
       .facts { grid-template-columns: 1fr; }
       th, td { padding: 9px; }
       h1 { font-size: 34px; }
       .checklist li { grid-template-columns: 44px 1fr; }
       .rating-control { min-width: 230px; }
+      .weighted-score-table .rating-control { min-width: 0; }
       .rating-btn { min-width: 40px; }
+      .weighted-score-table .rating-btn { min-width: 0; }
     }
 
     @media print {
@@ -613,6 +703,11 @@
       a { color: #745d28; }
       .action-buttons { display: none; }
       .progress-fill { background: #745d28; }
+      .weighted-score-table thead { display: table-header-group; }
+      .weighted-score-table table { display: table; border-collapse: collapse; }
+      .weighted-score-table tr { display: table-row; }
+      .weighted-score-table td { display: table-cell; border: 1px solid #d6c7a4; }
+      .weighted-score-table td::before { content: none !important; }
     }
   </style>
 </head>
@@ -993,8 +1088,8 @@
     <section class="section">
       <h2>合租決策加權評分表</h2>
       <p class="section-lead">看完房後，各自填一輪。若有任一項低於 3 分，先談修正條件再付訂。</p>
-      <div class="section-split-2">
-        <div>
+      <div class="section-split-2 weighted-score-layout">
+        <div class="weighted-score-table">
           <table>
             <thead>
               <tr>
