@@ -1014,76 +1014,7 @@
       </div>
     </section>
 
-    <section class="section">
-      <h2>室友租金與首期費用分攤計算器</h2>
-      <p class="section-lead">輸入合約總金額與房間權重，為三位室友自動計算每月租金及入住所需準備的首期款項。</p>
-      
-      <div class="section-split-2">
-        <div style="display: flex; flex-direction: column; gap: 16px;">
-          <div>
-            <label style="display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px;">協議月租金金額 (元)</label>
-            <input type="number" id="calc-total-rent" value="30000" step="100" style="width: 100%; padding: 10px; background: rgba(18, 22, 34, 0.8); border: 1px solid var(--line); color: var(--text); font-size: 16px; outline: none;">
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-            <div>
-              <label style="display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px;">押金月數</label>
-              <select id="calc-deposit-months" style="width: 100%; padding: 10px; background: rgba(18, 22, 34, 0.8); border: 1px solid var(--line); color: var(--text); font-size: 16px; outline: none; font-family: inherit;">
-                <option value="1">1 個月</option>
-                <option value="2" selected>2 個月</option>
-              </select>
-            </div>
-            <div>
-              <label style="display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px;">仲介服務費比例</label>
-              <select id="calc-service-fee" style="width: 100%; padding: 10px; background: rgba(18, 22, 34, 0.8); border: 1px solid var(--line); color: var(--text); font-size: 16px; outline: none; font-family: inherit;">
-                <option value="0">免服務費 (0%)</option>
-                <option value="0.5" selected>半個月 (50%)</option>
-                <option value="1">一個月 (100%)</option>
-              </select>
-            </div>
-          </div>
-          
-          <div style="border-top: 1px solid var(--line); padding-top: 14px; margin-top: 6px;">
-            <h4 style="margin: 0 0 12px 0; color: var(--gold-2); font-size: 14px;">房間權重調整 (影響租金分攤比例)</h4>
-            
-            <div style="margin-bottom: 12px;">
-              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
-                <span>房間 1：主臥房 (套房/採光佳)</span>
-                <strong id="weight-label-room1" style="color: var(--gold-2);">1.20</strong>
-              </div>
-              <input type="range" id="calc-weight-room1" min="0.5" max="2.0" step="0.05" value="1.20" class="slider-input">
-            </div>
-            
-            <div style="margin-bottom: 12px;">
-              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
-                <span>房間 2：雅房 A (中房/面陽台)</span>
-                <strong id="weight-label-room2" style="color: var(--gold-2);">1.00</strong>
-              </div>
-              <input type="range" id="calc-weight-room2" min="0.5" max="2.0" step="0.05" value="1.00" class="slider-input">
-            </div>
-            
-            <div style="margin-bottom: 12px;">
-              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
-                <span>房間 3：雅房 B (略小/內窗)</span>
-                <strong id="weight-label-room3" style="color: var(--gold-2);">0.80</strong>
-              </div>
-              <input type="range" id="calc-weight-room3" min="0.5" max="2.0" step="0.05" value="0.80" class="slider-input">
-            </div>
-          </div>
-        </div>
-        
-        <div style="padding: 20px; border: 1px solid var(--line); background: rgba(18, 22, 34, 0.6); backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 14px; height: 100%;">
-          <h3 style="margin: 0; font-size: 16px; color: var(--gold-2);">分攤試算結果</h3>
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--line); padding-bottom: 8px;">
-            <span style="color: var(--muted); font-size: 13px;">首期預備總費用（押金 + 服務費 + 首月租金）</span>
-            <strong id="calc-total-first-pay" style="color: var(--text); font-size: 15px;">- 元</strong>
-          </div>
-          
-          <div id="splitter-results-container" style="display: flex; flex-direction: column; gap: 12px;">
-            <!-- Dynamic Room results will go here -->
-          </div>
-        </div>
-      </div>
-    </section>
+
 
     <section class="section">
       <h2>合租決策加權評分表</h2>
@@ -1287,92 +1218,7 @@
         scoreCell.appendChild(control);
       });
 
-      // Splitter Logic
-      const updateSplitter = () => {
-        const totalRentInput = document.querySelector("#calc-total-rent");
-        const depositMonthsInput = document.querySelector("#calc-deposit-months");
-        const serviceFeeInput = document.querySelector("#calc-service-fee");
-        
-        if (!totalRentInput || !depositMonthsInput || !serviceFeeInput) return;
 
-        const totalRent = parseFloat(totalRentInput.value) || 0;
-        const depositMonths = parseInt(depositMonthsInput.value) || 0;
-        const serviceFeeRatio = parseFloat(serviceFeeInput.value) || 0;
-
-        const w1 = parseFloat(document.querySelector("#calc-weight-room1").value) || 1.0;
-        const w2 = parseFloat(document.querySelector("#calc-weight-room2").value) || 1.0;
-        const w3 = parseFloat(document.querySelector("#calc-weight-room3").value) || 1.0;
-
-        document.querySelector("#weight-label-room1").textContent = w1.toFixed(2);
-        document.querySelector("#weight-label-room2").textContent = w2.toFixed(2);
-        document.querySelector("#weight-label-room3").textContent = w3.toFixed(2);
-
-        const totalWeight = w1 + w2 + w3;
-
-        // Calculate splits
-        const rent1 = Math.round(totalRent * w1 / totalWeight);
-        const rent2 = Math.round(totalRent * w2 / totalWeight);
-        const rent3 = totalRent - rent1 - rent2; // ensure exact sum
-
-        const dep1 = rent1 * depositMonths;
-        const dep2 = rent2 * depositMonths;
-        const dep3 = rent3 * depositMonths;
-
-        const fee1 = Math.round(rent1 * serviceFeeRatio);
-        const fee2 = Math.round(rent2 * serviceFeeRatio);
-        const fee3 = Math.round(rent3 * serviceFeeRatio);
-
-        const first1 = rent1 + dep1 + fee1;
-        const first2 = rent2 + dep2 + fee2;
-        const first3 = rent3 + dep3 + fee3;
-
-        const totalFirst = first1 + first2 + first3;
-
-        document.querySelector("#calc-total-first-pay").textContent = totalFirst.toLocaleString() + " 元";
-
-        const resultsContainer = document.querySelector("#splitter-results-container");
-        resultsContainer.innerHTML = `
-          <div style="padding: 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--gold-2);">
-              <span>室友 1：主臥房 (權重: ${w1.toFixed(2)})</span>
-              <span>分攤月租: ${rent1.toLocaleString()} 元</span>
-            </div>
-            <div style="font-size: 12px; color: var(--muted); display: flex; justify-content: space-between;">
-              <span>押金: ${dep1.toLocaleString()} 元 | 服務費: ${fee1.toLocaleString()} 元</span>
-              <strong style="color: var(--text);">首期準備: ${first1.toLocaleString()} 元</strong>
-            </div>
-          </div>
-          <div style="padding: 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--gold-2);">
-              <span>室友 2：雅房 A (權重: ${w2.toFixed(2)})</span>
-              <span>分攤月租: ${rent2.toLocaleString()} 元</span>
-            </div>
-            <div style="font-size: 12px; color: var(--muted); display: flex; justify-content: space-between;">
-              <span>押金: ${dep2.toLocaleString()} 元 | 服務費: ${fee2.toLocaleString()} 元</span>
-              <strong style="color: var(--text);">首期準備: ${first2.toLocaleString()} 元</strong>
-            </div>
-          </div>
-          <div style="padding: 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px;">
-            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--gold-2);">
-              <span>室友 3：雅房 B (權重: ${w3.toFixed(2)})</span>
-              <span>分攤月租: ${rent3.toLocaleString()} 元</span>
-            </div>
-            <div style="font-size: 12px; color: var(--muted); display: flex; justify-content: space-between;">
-              <span>押金: ${dep3.toLocaleString()} 元 | 服務費: ${fee3.toLocaleString()} 元</span>
-              <strong style="color: var(--text);">首期準備: ${first3.toLocaleString()} 元</strong>
-            </div>
-          </div>
-        `;
-      };
-
-      const splitInputs = ["#calc-total-rent", "#calc-deposit-months", "#calc-service-fee", "#calc-weight-room1", "#calc-weight-room2", "#calc-weight-room3"];
-      splitInputs.forEach(selector => {
-        const el = document.querySelector(selector);
-        if (el) {
-          el.addEventListener("input", updateSplitter);
-          el.addEventListener("change", updateSplitter);
-        }
-      });
 
       // Copy Clause function
       window.copyClause = (btn, index) => {
@@ -1451,7 +1297,6 @@
       // Initialize
       updateProgress();
       updateScore();
-      updateSplitter();
       showCommute('home');
     })();
   </script>
