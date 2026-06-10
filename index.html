@@ -418,11 +418,109 @@
       text-align: center;
     }
 
+    /* Section Split layout */
+    .section-split-2 {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    /* Splitter Sliders */
+    .slider-input {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      outline: none;
+      margin: 8px 0;
+    }
+    .slider-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold-2);
+      border: 1px solid var(--gold);
+      cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .slider-input::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+      background: #fff;
+    }
+
+    /* Copy button style */
+    .copy-btn {
+      background: rgba(197, 168, 107, 0.06);
+      border: 1px solid var(--line);
+      color: var(--gold-2);
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      vertical-align: middle;
+      border-radius: 2px;
+    }
+    .copy-btn:hover {
+      background: rgba(197, 168, 107, 0.15);
+      border-color: var(--gold);
+      color: #fff;
+    }
+    .copy-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Donut card styling */
+    .donut-card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: rgba(18, 22, 34, 0.68);
+      backdrop-filter: blur(20px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      min-height: 280px;
+    }
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      font-size: 13px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      border-radius: 2px;
+      margin-top: 12px;
+    }
+    .badge-gold {
+      border-color: var(--line-strong);
+      background: rgba(197, 168, 107, 0.1);
+      color: var(--gold-2);
+    }
+    .badge-ok {
+      border-color: rgba(155, 231, 192, 0.3);
+      background: rgba(155, 231, 192, 0.08);
+      color: var(--ok);
+    }
+    .badge-warn {
+      border-color: rgba(255, 143, 143, 0.3);
+      background: rgba(255, 143, 143, 0.08);
+      color: var(--danger);
+    }
+
     @media (max-width: 860px) {
       .hero,
       .grid-2,
       .grid-3,
-      .decision {
+      .decision,
+      .section-split-2 {
         grid-template-columns: 1fr;
       }
 
@@ -562,25 +660,95 @@
     <section class="section">
       <h2>房源資料卡</h2>
       <p class="section-lead">以下為 591 頁面可讀取到的資訊，簽約前逐項確認是否仍一致。</p>
-      <div class="facts">
-        <div class="fact"><div class="label">月租</div><div class="value">28,998 元</div></div>
-        <div class="fact"><div class="label">若加 5%</div><div class="value">30,448 元</div></div>
-        <div class="fact"><div class="label">押金</div><div class="value">二個月租金</div></div>
-        <div class="fact"><div class="label">刊登押金</div><div class="value">57,996 元</div></div>
-        <div class="fact"><div class="label">格局</div><div class="value">3房1廳1衛</div></div>
-        <div class="fact"><div class="label">使用坪數</div><div class="value">25坪</div></div>
-        <div class="fact"><div class="label">樓層</div><div class="value">5F/5F</div></div>
-        <div class="fact"><div class="label">型態</div><div class="value">公寓</div></div>
-        <div class="fact"><div class="label">地址</div><div class="value">永和區秀朗路二段148巷</div></div>
-        <div class="fact"><div class="label">最短租期</div><div class="value">一年</div></div>
-        <div class="fact"><div class="label">可遷入日</div><div class="value">可隨時遷入</div></div>
-        <div class="fact"><div class="label">車位</div><div class="value">無車位</div></div>
-      </div>
-
-      <div class="grid-3" style="margin-top:16px;">
-        <div class="note ok"><strong>加分項：</strong>免管理費、可開伙、租金補貼、拎包入住、隨時可遷入、已辦產權登記。</div>
-        <div class="note warning"><strong>必查風險：</strong>5F/5F 公寓，現場確認是否無電梯、頂樓隔熱、漏水、西曬與搬家難度。</div>
-        <div class="note warning"><strong>費用風險：</strong>服務費未包含。若月租改 30,448，押金是否也改為 60,896 必須先問清楚。</div>
+      
+      <div class="section-split-2">
+        <div>
+          <div class="facts">
+            <div class="fact"><div class="label">月租</div><div class="value">28,998 元</div></div>
+            <div class="fact"><div class="label">若加 5%</div><div class="value">30,448 元</div></div>
+            <div class="fact"><div class="label">押金</div><div class="value">二個月租金</div></div>
+            <div class="fact"><div class="label">刊登押金</div><div class="value">57,996 元</div></div>
+            <div class="fact"><div class="label">格局</div><div class="value">3房1廳1衛</div></div>
+            <div class="fact"><div class="label">使用坪數</div><div class="value">25坪</div></div>
+            <div class="fact"><div class="label">樓層</div><div class="value">5F/5F</div></div>
+            <div class="fact"><div class="label">型態</div><div class="value">公寓</div></div>
+            <div class="fact"><div class="label">地址</div><div class="value">永和區秀朗路二段148巷</div></div>
+            <div class="fact"><div class="label">最短租期</div><div class="value">一年</div></div>
+            <div class="fact"><div class="label">可遷入日</div><div class="value">可隨時遷入</div></div>
+            <div class="fact"><div class="label">車位</div><div class="value">無車位</div></div>
+          </div>
+          
+          <div class="grid-3" style="margin-top:16px;">
+            <div class="note ok"><strong>加分項：</strong>免管理費、可開伙、租金補貼、拎包入住、隨時可遷入、已辦產權登記。</div>
+            <div class="note warning"><strong>必查風險：</strong>5F/5F 公寓，現場確認是否無電梯、頂樓隔熱、漏水、西曬與搬家難度。</div>
+            <div class="note warning"><strong>費用風險：</strong>服務費未包含。若月租改 30,448，押金是否也改為 60,896 必須先問清楚。</div>
+          </div>
+        </div>
+        
+        <div style="display: flex; flex-direction: column; gap: 12px; height: 100%;">
+          <div style="padding: 16px; border: 1px solid var(--line); background: rgba(18, 22, 34, 0.6); backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 12px;">
+            <h3 style="margin: 0; font-size: 16px; color: var(--gold-2); display: flex; justify-content: space-between; align-items: center;">
+              <span>周邊地理位置雷達</span>
+              <span style="font-size: 11px; font-weight: normal; color: var(--muted);">點擊地標查看通勤</span>
+            </h3>
+            
+            <div style="position: relative; width: 100%; display: flex; justify-content: center;">
+              <svg viewBox="0 0 320 240" style="background: rgba(9, 10, 15, 0.5); border: 1px solid var(--line); border-radius: 4px; width: 100%; height: auto; max-width: 320px;">
+                <!-- Distance rings -->
+                <circle cx="160" cy="120" r="35" fill="none" stroke="rgba(197, 168, 107, 0.08)" stroke-dasharray="3,3"></circle>
+                <circle cx="160" cy="120" r="75" fill="none" stroke="rgba(197, 168, 107, 0.12)" stroke-dasharray="3,3"></circle>
+                <circle cx="160" cy="120" r="110" fill="none" stroke="rgba(197, 168, 107, 0.16)" stroke-dasharray="3,3"></circle>
+                
+                <!-- Axis lines -->
+                <line x1="160" y1="10" x2="160" y2="230" stroke="rgba(197, 168, 107, 0.06)"></line>
+                <line x1="10" y1="120" x2="310" y2="120" stroke="rgba(197, 168, 107, 0.06)"></line>
+                
+                <!-- Commute lines -->
+                <!-- Yonghe Sports Center (Top Right) -->
+                <line x1="160" y1="120" x2="200" y2="70" stroke="var(--gold-2)" stroke-width="1.5" stroke-dasharray="2,2" style="cursor:pointer;" onclick="showCommute('sports')"></line>
+                <!-- Xiulang Bridge Station (Bottom Right) -->
+                <line x1="160" y1="120" x2="250" y2="190" stroke="var(--gold)" stroke-width="1.5" style="cursor:pointer;" onclick="showCommute('xiulang')"></line>
+                <!-- Jingping Station (Bottom Left) -->
+                <line x1="160" y1="120" x2="70" y2="180" stroke="var(--gold)" stroke-width="1.5" style="cursor:pointer;" onclick="showCommute('jingping')"></line>
+                <!-- Bus stop (Top Left) -->
+                <line x1="160" y1="120" x2="110" y2="90" stroke="var(--gold-2)" stroke-width="1.5" stroke-dasharray="2,2" style="cursor:pointer;" onclick="showCommute('bus')"></line>
+                
+                <!-- Center: Yonghe Xiulang Rd -->
+                <circle cx="160" cy="120" r="6" fill="#090a0f" stroke="var(--gold-2)" stroke-width="2" style="cursor:pointer;" onclick="showCommute('home')"></circle>
+                <circle cx="160" cy="120" r="12" fill="none" stroke="var(--gold-2)" stroke-width="1" opacity="0.4">
+                  <animate attributeName="r" values="6;16;6" dur="3s" repeatCount="indefinite"></animate>
+                  <animate attributeName="opacity" values="0.8;0;0.8" dur="3s" repeatCount="indefinite"></animate>
+                </circle>
+                
+                <!-- Landmark Nodes -->
+                <!-- Sports Center -->
+                <circle cx="200" cy="70" r="4.5" fill="var(--ok)" style="cursor:pointer;" onclick="showCommute('sports')"></circle>
+                <text x="206" y="66" font-size="10" fill="var(--text)" font-weight="bold" style="cursor:pointer;" onclick="showCommute('sports')">永和運動中心</text>
+                <text x="206" y="76" font-size="8.5" fill="var(--muted)">👣 5分鐘</text>
+                
+                <!-- Bus stop -->
+                <circle cx="110" cy="90" r="4" fill="var(--ok)" style="cursor:pointer;" onclick="showCommute('bus')"></circle>
+                <text x="104" y="86" font-size="10" fill="var(--soft)" text-anchor="end" style="cursor:pointer;" onclick="showCommute('bus')">公車站</text>
+                <text x="104" y="96" font-size="8.5" fill="var(--muted)" text-anchor="end">👣 2分鐘</text>
+                
+                <!-- Xiulang Bridge Station -->
+                <circle cx="250" cy="190" r="5" fill="var(--gold-2)" style="cursor:pointer;" onclick="showCommute('xiulang')"></circle>
+                <text x="256" y="186" font-size="10" fill="var(--text)" font-weight="bold" style="cursor:pointer;" onclick="showCommute('xiulang')">秀朗橋站 (環狀線)</text>
+                <text x="256" y="197" font-size="8.5" fill="var(--muted)">👣 14分 / 🚲 4分</text>
+                
+                <!-- Jingping Station -->
+                <circle cx="70" cy="180" r="5" fill="var(--gold-2)" style="cursor:pointer;" onclick="showCommute('jingping')"></circle>
+                <text x="64" y="176" font-size="10" fill="var(--text)" font-weight="bold" text-anchor="end" style="cursor:pointer;" onclick="showCommute('jingping')">景平站 (環狀線)</text>
+                <text x="64" y="187" font-size="8.5" fill="var(--muted)" text-anchor="end">👣 16分 / 🚲 5分</text>
+              </svg>
+            </div>
+            
+            <div id="commute-info-card" style="padding: 10px 12px; border: 1px solid var(--line); background: rgba(9, 10, 15, 0.4); min-height: 52px; font-size: 12.5px; transition: all 0.2s ease;">
+              <strong style="color: var(--gold-2); display: block;" id="commute-title">房源核心：永和區秀朗路二段148巷</strong>
+              <span style="color: var(--soft);" id="commute-desc">點擊上方地標，查看具體通勤時間與距離分析。</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -728,33 +896,143 @@
       </table>
 
       <h3>建議加進合約的三句話</h3>
-      <div class="script">承租人得依法自行申請租金補貼、報稅或辦理相關租賃申報，出租人不得因此調漲租金、要求補償、提前終止租約或另收其他名目費用。</div>
-      <div class="script">房屋本體及附屬設備因自然耗損或非可歸責於承租人之原因損壞者，由出租人負責修繕。</div>
-      <div class="script">租約終止並完成房屋點交後，出租人應於 7 日內返還押金餘額。若需扣款，應提出明細、照片或單據，不得任意扣押。</div>
+      <div style="margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <span style="font-size: 13px; color: var(--muted);">第一句：租金補貼與申報保障</span>
+          <button class="copy-btn" onclick="copyClause(this, 1)">複製條款</button>
+        </div>
+        <div class="script" id="clause-1">承租人得依法自行申請租金補貼、報稅或辦理相關租賃申報，出租人不得因此調漲租金、要求補償、提前終止租約或另收其他名目費用。</div>
+      </div>
+      <div style="margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <span style="font-size: 13px; color: var(--muted);">第二句：設備修繕責任</span>
+          <button class="copy-btn" onclick="copyClause(this, 2)">複製條款</button>
+        </div>
+        <div class="script" id="clause-2">房屋本體及附屬設備因自然耗損或非可歸責於承租人之原因損壞者，由出租人負責修繕。</div>
+      </div>
+      <div style="margin-bottom: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+          <span style="font-size: 13px; color: var(--muted);">第三句：押金返還期限與扣款證明</span>
+          <button class="copy-btn" onclick="copyClause(this, 3)">複製條款</button>
+        </div>
+        <div class="script" id="clause-3">租約終止並完成房屋點交後，出租人應於 7 日內返還押金餘額。若需扣款，應提出明細、照片或單據，不得任意扣押。</div>
+      </div>
     </section>
 
     <section class="section">
-      <h2>合租決策表</h2>
+      <h2>室友租金與首期費用分攤計算器</h2>
+      <p class="section-lead">輸入合約總金額與房間權重，為三位室友自動計算每月租金及入住所需準備的首期款項。</p>
+      
+      <div class="section-split-2">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div>
+            <label style="display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px;">協議月租金金額 (元)</label>
+            <input type="number" id="calc-total-rent" value="30000" step="100" style="width: 100%; padding: 10px; background: rgba(18, 22, 34, 0.8); border: 1px solid var(--line); color: var(--text); font-size: 16px; outline: none;">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px;">押金月數</label>
+              <select id="calc-deposit-months" style="width: 100%; padding: 10px; background: rgba(18, 22, 34, 0.8); border: 1px solid var(--line); color: var(--text); font-size: 16px; outline: none; font-family: inherit;">
+                <option value="1">1 個月</option>
+                <option value="2" selected>2 個月</option>
+              </select>
+            </div>
+            <div>
+              <label style="display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px;">仲介服務費比例</label>
+              <select id="calc-service-fee" style="width: 100%; padding: 10px; background: rgba(18, 22, 34, 0.8); border: 1px solid var(--line); color: var(--text); font-size: 16px; outline: none; font-family: inherit;">
+                <option value="0">免服務費 (0%)</option>
+                <option value="0.5" selected>半個月 (50%)</option>
+                <option value="1">一個月 (100%)</option>
+              </select>
+            </div>
+          </div>
+          
+          <div style="border-top: 1px solid var(--line); padding-top: 14px; margin-top: 6px;">
+            <h4 style="margin: 0 0 12px 0; color: var(--gold-2); font-size: 14px;">房間權重調整 (影響租金分攤比例)</h4>
+            
+            <div style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <span>房間 1：主臥房 (套房/採光佳)</span>
+                <strong id="weight-label-room1" style="color: var(--gold-2);">1.20</strong>
+              </div>
+              <input type="range" id="calc-weight-room1" min="0.5" max="2.0" step="0.05" value="1.20" class="slider-input">
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <span>房間 2：雅房 A (中房/面陽台)</span>
+                <strong id="weight-label-room2" style="color: var(--gold-2);">1.00</strong>
+              </div>
+              <input type="range" id="calc-weight-room2" min="0.5" max="2.0" step="0.05" value="1.00" class="slider-input">
+            </div>
+            
+            <div style="margin-bottom: 12px;">
+              <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+                <span>房間 3：雅房 B (略小/內窗)</span>
+                <strong id="weight-label-room3" style="color: var(--gold-2);">0.80</strong>
+              </div>
+              <input type="range" id="calc-weight-room3" min="0.5" max="2.0" step="0.05" value="0.80" class="slider-input">
+            </div>
+          </div>
+        </div>
+        
+        <div style="padding: 20px; border: 1px solid var(--line); background: rgba(18, 22, 34, 0.6); backdrop-filter: blur(10px); display: flex; flex-direction: column; gap: 14px; height: 100%;">
+          <h3 style="margin: 0; font-size: 16px; color: var(--gold-2);">分攤試算結果</h3>
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed var(--line); padding-bottom: 8px;">
+            <span style="color: var(--muted); font-size: 13px;">首期預備總費用（押金 + 服務費 + 首月租金）</span>
+            <strong id="calc-total-first-pay" style="color: var(--text); font-size: 15px;">- 元</strong>
+          </div>
+          
+          <div id="splitter-results-container" style="display: flex; flex-direction: column; gap: 12px;">
+            <!-- Dynamic Room results will go here -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>合租決策加權評分表</h2>
       <p class="section-lead">看完房後，各自填一輪。若有任一項低於 3 分，先談修正條件再付訂。</p>
-      <table>
-        <thead>
-          <tr>
-            <th>項目</th>
-            <th>評分 1-5</th>
-            <th>這間房的判斷重點</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td>租金</td><td>＿＿ / 5</td><td>30,000 最漂亮；30,400 可接受；30,448 是接受上限。</td></tr>
-          <tr><td>樓層</td><td>＿＿ / 5</td><td>5F/5F 公寓，必須能接受爬樓與頂樓風險。</td></tr>
-          <tr><td>房間分配</td><td>＿＿ / 5</td><td>3 房大小若差很多，租金要按房間條件分。</td></tr>
-          <tr><td>家具家電</td><td>＿＿ / 5</td><td>有附很多設備，但要以現場測試結果為準。</td></tr>
-          <tr><td>交通</td><td>＿＿ / 5</td><td>秀朗橋站約 1114m，景平站約 1280m，不是貼捷運。</td></tr>
-          <tr><td>租補條件</td><td>＿＿ / 5</td><td>可租補，但必須寫明不再加價或另收費。</td></tr>
-          <tr><td>仲介費與訂金</td><td>＿＿ / 5</td><td>頁面寫收服務費，訂金與服務費都要有收據。</td></tr>
-          <tr><td>修繕保障</td><td>＿＿ / 5</td><td>頂樓、冷氣、熱水器、瓦斯、漏水責任要寫清楚。</td></tr>
-        </tbody>
-      </table>
+      <div class="section-split-2">
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>權重</th>
+                <th>評分 1-5</th>
+                <th>這間房的判斷重點</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>租金</td><td style="color:var(--gold-2); font-weight:700;">1.5 (高)</td><td data-weight="1.5">＿＿ / 5</td><td>30,000 最漂亮；30,400 可接受；30,448 是接受上限。</td></tr>
+              <tr><td>樓層</td><td style="color:var(--muted); font-size: 13px;">1.2 (中)</td><td data-weight="1.2">＿＿ / 5</td><td>5F/5F 公寓，必須能接受爬樓與頂樓風險。</td></tr>
+              <tr><td>房間分配</td><td style="color:var(--muted); font-size: 13px;">1.0 (中)</td><td data-weight="1.0">＿＿ / 5</td><td>3 房大小若差很多，租金要按房間條件分。</td></tr>
+              <tr><td>家具家電</td><td style="color:var(--muted); font-size: 13px;">0.8 (低)</td><td data-weight="0.8">＿＿ / 5</td><td>有附很多設備，但要以現場測試結果為準。</td></tr>
+              <tr><td>交通</td><td style="color:var(--muted); font-size: 13px;">1.0 (中)</td><td data-weight="1.0">＿＿ / 5</td><td>秀朗橋站約 1114m，景平站約 1280m，不是貼捷運。</td></tr>
+              <tr><td>租補條件</td><td style="color:var(--muted); font-size: 13px;">1.2 (中)</td><td data-weight="1.2">＿＿ / 5</td><td>可租補，但必須寫明不再加價或另收費。</td></tr>
+              <tr><td>仲介費與訂金</td><td style="color:var(--muted); font-size: 13px;">0.8 (低)</td><td data-weight="0.8">＿＿ / 5</td><td>頁面寫收服務費，訂金與服務費都要有收據。</td></tr>
+              <tr><td>修繕保障</td><td style="color:var(--gold-2); font-weight:700;">1.5 (高)</td><td data-weight="1.5">＿＿ / 5</td><td>頂樓、冷氣、熱水器、瓦斯、漏水責任要寫清楚。</td></tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="donut-card">
+          <h3 style="margin: 0; color: var(--gold-2); font-size: 16px;">加權綜合指標</h3>
+          <div style="position: relative; width: 140px; height: 140px; margin: 16px 0;">
+            <svg width="140" height="140" viewBox="0 0 140 140">
+              <circle cx="70" cy="70" r="58" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="10"></circle>
+              <circle cx="70" cy="70" r="58" fill="none" stroke="var(--gold)" stroke-width="10" stroke-dasharray="365" stroke-dashoffset="365" id="donut-path" transform="rotate(-90 70 70)" stroke-linecap="round" style="transition: stroke-dashoffset 0.4s ease, stroke 0.4s ease;"></circle>
+            </svg>
+            <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+              <span id="score-text" style="font-size: 30px; font-weight: 800; color: var(--text);">0.0</span>
+              <span style="font-size: 11px; color: var(--muted);">/ 5.0分</span>
+            </div>
+          </div>
+          <div id="decision-result-badge" class="badge badge-gold">未評估</div>
+          <p id="decision-suggestion" style="font-size: 12.5px; color: var(--soft); margin-top: 12px; line-height: 1.5; max-width: 220px;">請在左側表格為各項目評分，系統會為您計算加權得分與合租建議。</p>
+        </div>
+      </div>
     </section>
 
     <section class="section">
@@ -818,14 +1096,70 @@
         });
       });
 
+      // Decision table scoring
       const decisionHeading = Array.from(document.querySelectorAll("h2"))
-        .find((heading) => heading.textContent.trim() === "合租決策表");
+        .find((heading) => heading.textContent.trim() === "合租決策加權評分表");
       const decisionRows = decisionHeading
         ? Array.from(decisionHeading.closest(".section").querySelectorAll("tbody tr"))
         : [];
 
+      const updateScore = () => {
+        let totalWeightedScore = 0;
+        let totalWeight = 0;
+        let ratedCount = 0;
+
+        decisionRows.forEach((row, rowIndex) => {
+          const key = `rating-${rowIndex}`;
+          const weight = parseFloat(row.children[2].getAttribute("data-weight") || "1.0");
+          const score = state.ratings[key];
+
+          if (score !== undefined) {
+            totalWeightedScore += score * weight;
+            totalWeight += weight;
+            ratedCount += 1;
+          }
+        });
+
+        const scoreText = document.querySelector("#score-text");
+        const donutPath = document.querySelector("#donut-path");
+        const badge = document.querySelector("#decision-result-badge");
+        const suggestion = document.querySelector("#decision-suggestion");
+
+        if (!scoreText || !donutPath || !badge || !suggestion) return;
+
+        if (ratedCount === 0) {
+          scoreText.textContent = "0.0";
+          donutPath.style.strokeDashoffset = "365";
+          badge.textContent = "未評估";
+          badge.className = "badge badge-gold";
+          suggestion.textContent = "請在左側表格為各項目評分，系統會為您計算加權得分與合租建議。";
+          return;
+        }
+
+        const finalScore = (totalWeightedScore / totalWeight).toFixed(1);
+        scoreText.textContent = finalScore;
+
+        const percent = finalScore / 5;
+        const offset = 365 - (365 * percent);
+        donutPath.style.strokeDashoffset = offset;
+
+        if (finalScore >= 4.2) {
+          badge.textContent = "🌟 極力推薦";
+          badge.className = "badge badge-ok";
+          suggestion.textContent = `得分 ${finalScore}：各項條件極佳！極力推薦承租。請確認付訂與簽約程序，儘速與房東聯繫。`;
+        } else if (finalScore >= 3.2) {
+          badge.textContent = "⚖️ 考慮承租";
+          badge.className = "badge badge-gold";
+          suggestion.textContent = `得分 ${finalScore}：整體條件尚可。在付訂前，務必與房東談妥頂樓修繕與管理權責，並將防禦條款寫進合約。`;
+        } else {
+          badge.textContent = "❌ 風險過高";
+          badge.className = "badge badge-warn";
+          suggestion.textContent = `得分 ${finalScore}：低於合租評估標準。此房源漏水、頂樓西曬或月租負擔可能較大，建議直接放棄或與房東重新議價。`;
+        }
+      };
+
       decisionRows.forEach((row, rowIndex) => {
-        const scoreCell = row.children[1];
+        const scoreCell = row.children[2];
         const key = `rating-${rowIndex}`;
         const control = document.createElement("div");
         control.className = "rating-control";
@@ -840,7 +1174,8 @@
           button.setAttribute("aria-checked", String(state.ratings[key] === score));
           button.setAttribute("role", "radio");
           if (state.ratings[key] === score) button.classList.add("is-active");
-          button.addEventListener("click", () => {
+          button.addEventListener("click", (e) => {
+            e.stopPropagation();
             state.ratings[key] = score;
             saveState();
             control.querySelectorAll(".rating-btn").forEach((ratingButton) => {
@@ -848,6 +1183,7 @@
               ratingButton.classList.toggle("is-active", active);
               ratingButton.setAttribute("aria-checked", String(active));
             });
+            updateScore();
           });
           control.appendChild(button);
         }
@@ -855,6 +1191,149 @@
         scoreCell.textContent = "";
         scoreCell.appendChild(control);
       });
+
+      // Splitter Logic
+      const updateSplitter = () => {
+        const totalRentInput = document.querySelector("#calc-total-rent");
+        const depositMonthsInput = document.querySelector("#calc-deposit-months");
+        const serviceFeeInput = document.querySelector("#calc-service-fee");
+        
+        if (!totalRentInput || !depositMonthsInput || !serviceFeeInput) return;
+
+        const totalRent = parseFloat(totalRentInput.value) || 0;
+        const depositMonths = parseInt(depositMonthsInput.value) || 0;
+        const serviceFeeRatio = parseFloat(serviceFeeInput.value) || 0;
+
+        const w1 = parseFloat(document.querySelector("#calc-weight-room1").value) || 1.0;
+        const w2 = parseFloat(document.querySelector("#calc-weight-room2").value) || 1.0;
+        const w3 = parseFloat(document.querySelector("#calc-weight-room3").value) || 1.0;
+
+        document.querySelector("#weight-label-room1").textContent = w1.toFixed(2);
+        document.querySelector("#weight-label-room2").textContent = w2.toFixed(2);
+        document.querySelector("#weight-label-room3").textContent = w3.toFixed(2);
+
+        const totalWeight = w1 + w2 + w3;
+
+        // Calculate splits
+        const rent1 = Math.round(totalRent * w1 / totalWeight);
+        const rent2 = Math.round(totalRent * w2 / totalWeight);
+        const rent3 = totalRent - rent1 - rent2; // ensure exact sum
+
+        const dep1 = rent1 * depositMonths;
+        const dep2 = rent2 * depositMonths;
+        const dep3 = rent3 * depositMonths;
+
+        const fee1 = Math.round(rent1 * serviceFeeRatio);
+        const fee2 = Math.round(rent2 * serviceFeeRatio);
+        const fee3 = Math.round(rent3 * serviceFeeRatio);
+
+        const first1 = rent1 + dep1 + fee1;
+        const first2 = rent2 + dep2 + fee2;
+        const first3 = rent3 + dep3 + fee3;
+
+        const totalFirst = first1 + first2 + first3;
+
+        document.querySelector("#calc-total-first-pay").textContent = totalFirst.toLocaleString() + " 元";
+
+        const resultsContainer = document.querySelector("#splitter-results-container");
+        resultsContainer.innerHTML = `
+          <div style="padding: 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--gold-2);">
+              <span>室友 1：主臥房 (權重: ${w1.toFixed(2)})</span>
+              <span>分攤月租: ${rent1.toLocaleString()} 元</span>
+            </div>
+            <div style="font-size: 12px; color: var(--muted); display: flex; justify-content: space-between;">
+              <span>押金: ${dep1.toLocaleString()} 元 | 服務費: ${fee1.toLocaleString()} 元</span>
+              <strong style="color: var(--text);">首期準備: ${first1.toLocaleString()} 元</strong>
+            </div>
+          </div>
+          <div style="padding: 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--gold-2);">
+              <span>室友 2：雅房 A (權重: ${w2.toFixed(2)})</span>
+              <span>分攤月租: ${rent2.toLocaleString()} 元</span>
+            </div>
+            <div style="font-size: 12px; color: var(--muted); display: flex; justify-content: space-between;">
+              <span>押金: ${dep2.toLocaleString()} 元 | 服務費: ${fee2.toLocaleString()} 元</span>
+              <strong style="color: var(--text);">首期準備: ${first2.toLocaleString()} 元</strong>
+            </div>
+          </div>
+          <div style="padding: 12px; background: rgba(255, 255, 255, 0.02); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 4px;">
+            <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--gold-2);">
+              <span>室友 3：雅房 B (權重: ${w3.toFixed(2)})</span>
+              <span>分攤月租: ${rent3.toLocaleString()} 元</span>
+            </div>
+            <div style="font-size: 12px; color: var(--muted); display: flex; justify-content: space-between;">
+              <span>押金: ${dep3.toLocaleString()} 元 | 服務費: ${fee3.toLocaleString()} 元</span>
+              <strong style="color: var(--text);">首期準備: ${first3.toLocaleString()} 元</strong>
+            </div>
+          </div>
+        `;
+      };
+
+      const splitInputs = ["#calc-total-rent", "#calc-deposit-months", "#calc-service-fee", "#calc-weight-room1", "#calc-weight-room2", "#calc-weight-room3"];
+      splitInputs.forEach(selector => {
+        const el = document.querySelector(selector);
+        if (el) {
+          el.addEventListener("input", updateSplitter);
+          el.addEventListener("change", updateSplitter);
+        }
+      });
+
+      // Copy Clause function
+      window.copyClause = (btn, index) => {
+        const text = document.querySelector(`#clause-${index}`).textContent.trim();
+        navigator.clipboard.writeText(text).then(() => {
+          const originalText = btn.textContent;
+          btn.textContent = "已複製!";
+          btn.style.borderColor = "var(--ok)";
+          btn.style.color = "var(--ok)";
+          setTimeout(() => {
+            btn.textContent = originalText;
+            btn.style.borderColor = "";
+            btn.style.color = "";
+          }, 1500);
+        }).catch(() => {
+          alert("複製失敗，請手動複製！");
+        });
+      };
+
+      // Commute Info function
+      window.showCommute = (place) => {
+        const title = document.querySelector("#commute-title");
+        const desc = document.querySelector("#commute-desc");
+        const card = document.querySelector("#commute-info-card");
+
+        if (!title || !desc || !card) return;
+
+        card.style.borderColor = "var(--gold)";
+        card.style.background = "rgba(197, 168, 107, 0.08)";
+
+        switch (place) {
+          case 'sports':
+            title.textContent = "永和運動中心：離家 5 公尺 (步行 10 秒)";
+            desc.textContent = "出巷口即達，非常適合下課/下班後運動、健身或游泳。";
+            break;
+          case 'xiulang':
+            title.textContent = "捷運秀朗橋站：距離約 1.1 公里 (步行 14 分 / 單車 4 分)";
+            desc.textContent = "可搭乘捷運環狀線。如果覺得走路稍遠，可考慮騎乘 YouBike（巷口通常有站點）。";
+            break;
+          case 'jingping':
+            title.textContent = "捷運景平站：距離約 1.3 公里 (步行 16 分 / 單車 5 分)";
+            desc.textContent = "環狀線另一站點，附近有大潤發與黃昏市場，生活採買便利。";
+            break;
+          case 'bus':
+            title.textContent = "秀朗國小公車站：距離 150 公尺 (步行 2 分)";
+            desc.textContent = "班次多，有多條路線通往公館、台北車站、中和或板橋，是非常方便的通勤備案。";
+            break;
+          case 'home':
+          default:
+            title.textContent = "房源核心：永和區秀朗路二段148巷";
+            desc.textContent = "5F/5F 公寓頂樓，無管理費。附近生活機能以秀朗國小與運動中心為核心，十分便利。";
+            card.style.borderColor = "var(--line)";
+            card.style.background = "rgba(9, 10, 15, 0.4)";
+            break;
+        }
+      };
 
       document.querySelector("#clearChecks").addEventListener("click", () => {
         state.checks = {};
@@ -869,10 +1348,16 @@
           button.setAttribute("aria-checked", "false");
         });
         updateProgress();
+        updateScore();
       });
 
       document.querySelector("#printPage").addEventListener("click", () => window.print());
+      
+      // Initialize
       updateProgress();
+      updateScore();
+      updateSplitter();
+      showCommute('home');
     })();
   </script>
 </body>
