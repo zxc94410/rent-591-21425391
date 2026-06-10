@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>永和秀朗路 21425391 租屋決策包</title>
   <style>
     :root {
@@ -35,6 +35,11 @@
     }
 
     a { color: var(--gold-2); }
+
+    button {
+      font: inherit;
+      color: inherit;
+    }
 
     .page {
       width: min(1120px, calc(100% - 32px));
@@ -128,6 +133,71 @@
       background: rgba(197, 168, 107, 0.08);
       color: var(--gold-2);
       font-weight: 700;
+    }
+
+    .action-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 16px 0 0;
+      padding: 10px;
+      border: 1px solid var(--line);
+      background: rgba(9, 10, 15, 0.88);
+      backdrop-filter: blur(18px);
+    }
+
+    .progress-group {
+      flex: 1;
+      min-width: 170px;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .progress-track {
+      height: 8px;
+      margin-top: 7px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-2));
+      transition: width 180ms ease;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .action-btn {
+      min-height: 44px;
+      padding: 8px 12px;
+      border: 1px solid var(--line-strong);
+      background: rgba(197, 168, 107, 0.12);
+      color: var(--gold-2);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .action-btn:active {
+      transform: translateY(1px);
     }
 
     .section {
@@ -240,21 +310,83 @@
 
     .checklist li {
       display: grid;
-      grid-template-columns: 24px 1fr;
-      gap: 10px;
+      grid-template-columns: 48px 1fr;
+      gap: 12px;
       align-items: start;
+      min-height: 58px;
       padding: 10px 12px;
       border: 1px solid var(--line);
       background: rgba(18, 22, 34, 0.68);
       color: var(--soft);
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
     }
 
     .box {
-      width: 18px;
-      height: 18px;
-      margin-top: 4px;
+      position: relative;
+      width: 44px;
+      height: 44px;
+      margin: 0;
       border: 1px solid var(--line-strong);
       background: rgba(255, 255, 255, 0.03);
+      cursor: pointer;
+      appearance: none;
+      display: grid;
+      place-items: center;
+    }
+
+    .box::after {
+      content: "";
+      width: 12px;
+      height: 22px;
+      border-right: 3px solid transparent;
+      border-bottom: 3px solid transparent;
+      transform: rotate(42deg) translate(-1px, -2px);
+    }
+
+    .checklist li.is-checked {
+      border-color: rgba(155, 231, 192, 0.52);
+      background: rgba(155, 231, 192, 0.09);
+      color: var(--text);
+    }
+
+    .checklist li.is-checked .box {
+      border-color: rgba(155, 231, 192, 0.72);
+      background: rgba(155, 231, 192, 0.18);
+    }
+
+    .checklist li.is-checked .box::after {
+      border-color: var(--ok);
+    }
+
+    .rating-control {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(42px, 1fr));
+      gap: 7px;
+      min-width: 245px;
+    }
+
+    .rating-btn {
+      min-width: 42px;
+      min-height: 44px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      cursor: pointer;
+      font-weight: 900;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease;
+    }
+
+    .rating-btn.is-active {
+      border-color: rgba(197, 168, 107, 0.7);
+      background: rgba(197, 168, 107, 0.22);
+      color: var(--gold-2);
+    }
+
+    .rating-btn.is-active::after {
+      content: " ✓";
+      color: var(--ok);
+      font-weight: 900;
     }
 
     .script {
@@ -301,12 +433,23 @@
       .hero-image { min-height: 260px; }
       .page { width: min(100% - 20px, 1120px); padding-top: 10px; }
       .section, .hero { padding: 16px; }
+      .action-bar { align-items: stretch; flex-direction: column; }
+      .action-buttons { justify-content: stretch; }
+      .action-btn { flex: 1; min-height: 48px; }
+      table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
     }
 
     @media (max-width: 560px) {
       .facts { grid-template-columns: 1fr; }
       th, td { padding: 9px; }
       h1 { font-size: 34px; }
+      .checklist li { grid-template-columns: 44px 1fr; }
+      .rating-control { min-width: 230px; }
+      .rating-btn { min-width: 40px; }
     }
 
     @media print {
@@ -326,7 +469,8 @@
       td,
       .checklist li,
       .note,
-      .script {
+      .script,
+      .action-bar {
         background: #fff;
         color: var(--ink);
         border-color: #d6c7a4;
@@ -369,6 +513,8 @@
       }
 
       a { color: #745d28; }
+      .action-buttons { display: none; }
+      .progress-fill { background: #745d28; }
     }
   </style>
 </head>
@@ -394,6 +540,22 @@
           <span>591 刊登照片</span>
           <span>租金不含其他費用</span>
         </div>
+      </div>
+    </section>
+
+    <section class="action-bar" aria-label="互動操作列">
+      <div class="progress-group">
+        <div class="progress-label">
+          <span>檢查完成度</span>
+          <span id="progressText">0/0</span>
+        </div>
+        <div class="progress-track" aria-hidden="true">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+      <div class="action-buttons">
+        <button class="action-btn" type="button" id="clearChecks">清除勾選</button>
+        <button class="action-btn" type="button" id="printPage">列印 / 存 PDF</button>
       </div>
     </section>
 
@@ -608,5 +770,110 @@
       資料來源：<a href="https://rent.591.com.tw/21425391">591 租屋房源 21425391</a>。本文件依 2026-06-11 抓取頁面資訊整理，實際條件以簽約白紙黑字為準。
     </p>
   </main>
+  <script>
+    (() => {
+      const storageKey = "rent-591-21425391:v2";
+      const state = JSON.parse(localStorage.getItem(storageKey) || "{\"checks\":{},\"ratings\":{}}");
+      const saveState = () => localStorage.setItem(storageKey, JSON.stringify(state));
+      const checklistItems = Array.from(document.querySelectorAll(".checklist li"));
+      const progressText = document.querySelector("#progressText");
+      const progressFill = document.querySelector("#progressFill");
+
+      const updateProgress = () => {
+        const checkedCount = checklistItems.filter((item) => item.classList.contains("is-checked")).length;
+        const total = checklistItems.length;
+        const percent = total ? Math.round((checkedCount / total) * 100) : 0;
+        progressText.textContent = `${checkedCount}/${total}，${percent}%`;
+        progressFill.style.width = `${percent}%`;
+      };
+
+      checklistItems.forEach((item, index) => {
+        const key = `check-${index}`;
+        const box = item.querySelector(".box");
+        box.setAttribute("role", "checkbox");
+        box.setAttribute("tabindex", "0");
+        box.setAttribute("aria-label", "切換檢查項目");
+        if (state.checks[key]) {
+          item.classList.add("is-checked");
+          box.setAttribute("aria-checked", "true");
+        } else {
+          box.setAttribute("aria-checked", "false");
+        }
+
+        const toggle = () => {
+          const next = !item.classList.contains("is-checked");
+          item.classList.toggle("is-checked", next);
+          box.setAttribute("aria-checked", String(next));
+          state.checks[key] = next;
+          saveState();
+          updateProgress();
+        };
+
+        item.addEventListener("click", toggle);
+        box.addEventListener("keydown", (event) => {
+          if (event.key === " " || event.key === "Enter") {
+            event.preventDefault();
+            toggle();
+          }
+        });
+      });
+
+      const decisionHeading = Array.from(document.querySelectorAll("h2"))
+        .find((heading) => heading.textContent.trim() === "合租決策表");
+      const decisionRows = decisionHeading
+        ? Array.from(decisionHeading.closest(".section").querySelectorAll("tbody tr"))
+        : [];
+
+      decisionRows.forEach((row, rowIndex) => {
+        const scoreCell = row.children[1];
+        const key = `rating-${rowIndex}`;
+        const control = document.createElement("div");
+        control.className = "rating-control";
+        control.setAttribute("role", "radiogroup");
+        control.setAttribute("aria-label", `${row.children[0].textContent}評分`);
+
+        for (let score = 1; score <= 5; score += 1) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "rating-btn";
+          button.textContent = String(score);
+          button.setAttribute("aria-checked", String(state.ratings[key] === score));
+          button.setAttribute("role", "radio");
+          if (state.ratings[key] === score) button.classList.add("is-active");
+          button.addEventListener("click", () => {
+            state.ratings[key] = score;
+            saveState();
+            control.querySelectorAll(".rating-btn").forEach((ratingButton) => {
+              const active = Number(ratingButton.textContent.trim().charAt(0)) === score;
+              ratingButton.classList.toggle("is-active", active);
+              ratingButton.setAttribute("aria-checked", String(active));
+            });
+          });
+          control.appendChild(button);
+        }
+
+        scoreCell.textContent = "";
+        scoreCell.appendChild(control);
+      });
+
+      document.querySelector("#clearChecks").addEventListener("click", () => {
+        state.checks = {};
+        state.ratings = {};
+        saveState();
+        checklistItems.forEach((item) => {
+          item.classList.remove("is-checked");
+          item.querySelector(".box").setAttribute("aria-checked", "false");
+        });
+        document.querySelectorAll(".rating-btn").forEach((button) => {
+          button.classList.remove("is-active");
+          button.setAttribute("aria-checked", "false");
+        });
+        updateProgress();
+      });
+
+      document.querySelector("#printPage").addEventListener("click", () => window.print());
+      updateProgress();
+    })();
+  </script>
 </body>
 </html>
